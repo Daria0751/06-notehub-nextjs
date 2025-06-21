@@ -1,7 +1,19 @@
-import React from 'react'
+'use client';
 
-const NoteDetailsClient = () => {
-  return <div>NoteDetailsClient</div>;
+import React from 'react';
+import { Note } from '../../../lid/api';
+
+type Props = {
+  note: Note;
+};
+
+const NoteDetailsClient = ({ note }: Props) => {
+  return (
+    <section>
+      <h1>{note.title}</h1>
+      <p>{note.content}</p>
+    </section>
+  );
 };
 
 export default NoteDetailsClient;

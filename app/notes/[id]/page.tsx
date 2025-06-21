@@ -1,20 +1,24 @@
-import { getNotes } from '../../../lid/api';
 import { getSingleNote } from '../../../lid/api'; 
-import React from 'react'
-
+import NoteDetailsClient from './NoteDetails.client';
+import React from 'react';
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 };
 
 const NoteDetails = async ({ params }: Props) => {
-  const { id } = await params;
-  const note = await getSingleNote(id);
-  console.log(note);
+  const { id } = params;
 
-  return <div>NoteDetails</div>;
+  const note = await getSingleNote(id);
+
+  if (!note) {
+    return <p>Note not found</p>;
+  }
+
+  return <NoteDetailsClient note={note} />;
 };
 
 export default NoteDetails;
+
 
   
