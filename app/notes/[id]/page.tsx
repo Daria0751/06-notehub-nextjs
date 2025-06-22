@@ -1,16 +1,22 @@
 import { getSingleNote } from '../../../lid/api';
 import NoteDetailsClient from './NoteDetails.client';
-import { QueryClient, HydrationBoundary, dehydrate } from '@tanstack/react-query';
+import {
+  QueryClient,
+  HydrationBoundary,
+  dehydrate,
+} from '@tanstack/react-query';
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function NoteDetails({ params }: { params: { id: string } }) {
+  const { id } = params;
+
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ['note', params.id],
-    queryFn: () => getSingleNote(params.id),
+    queryKey: ['note', id],
+    queryFn: () => getSingleNote(id),
   });
 
-  const note = await getSingleNote(params.id);
+  const note = await getSingleNote(id);
 
   if (!note) {
     return <p>Note not found</p>;
@@ -22,6 +28,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     </HydrationBoundary>
   );
 }
+
 
 
 
