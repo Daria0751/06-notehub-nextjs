@@ -6,8 +6,12 @@ import {
   dehydrate,
 } from '@tanstack/react-query';
 
-export default async function NoteDetails({ params }: { params: { id: string } }) {
-  const { id } = params;
+interface NoteDetailsProps {
+  params: Promise<{ id: string }>;
+}
+
+export default async function NoteDetails({ params }: NoteDetailsProps) {
+  const { id } = await params;
 
   const queryClient = new QueryClient();
 
@@ -28,7 +32,6 @@ export default async function NoteDetails({ params }: { params: { id: string } }
     </HydrationBoundary>
   );
 }
-
 
 
 
