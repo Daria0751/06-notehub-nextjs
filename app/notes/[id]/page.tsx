@@ -7,11 +7,13 @@ import {
   dehydrate,
 } from '@tanstack/react-query';
 
-type Props = {
+// У Next.js 15 App Router правильніше не створювати свій Props type, 
+// а одразу в параметрах функції деструктурувати params:
+interface PageProps {
   params: { id: string };
-};
+}
 
-const NoteDetails = async ({ params }: Props) => {
+const NoteDetails = async ({ params }: PageProps) => {
   const { id } = params;
 
   const queryClient = new QueryClient();
