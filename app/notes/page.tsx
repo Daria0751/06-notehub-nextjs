@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'Notes Page',
 };
 
-export default async function NotesPage() {
+export default async function Page() {
   const response = await getNotes();
 
   return (
