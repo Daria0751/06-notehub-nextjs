@@ -11,10 +11,17 @@ export default async function Page() {
 
   return (
     <section>
-      <NotesClient initialData={response.notes} />
+      <NotesClient 
+        initialData={{
+          notes: response.notes,
+          totalPages: response.total
+        }} 
+      />
     </section>
   );
 }
+
+
 
 
 

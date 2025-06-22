@@ -15,7 +15,10 @@ import { fetchNotes } from '../../lid/api';
 import type { Note } from '../../types/note';
 
 interface Props {
-  initialData: Note[];
+  initialData: {
+    notes: Note[];
+    totalPages: number;
+  };
 }
 
 export default function NotesClient({ initialData }: Props) {
@@ -27,7 +30,7 @@ export default function NotesClient({ initialData }: Props) {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['notes', debouncedSearch, page],
     queryFn: () => fetchNotes(debouncedSearch, page),
-    placeholderData: { notes: initialData, totalPages: 1 },
+    placeholderData: initialData,
     staleTime: 1000 * 60 * 5,
   });
 
