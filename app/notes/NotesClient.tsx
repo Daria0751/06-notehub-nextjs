@@ -12,8 +12,16 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import NoteModal from '../../components/NoteModal/NoteModal';
 import Pagination from '../../components/Pagination/Pagination';
 import { fetchNotes } from '../../lid/api';
+import type { Note } from '../../types/note';
 
-export default function NotesClient() {
+interface Props {
+  initialData: {
+    notes: Note[];
+    totalPages: number;
+  };
+}
+
+export default function NotesClient({ initialData }: Props) {
   const [search, setSearch] = useState('');
   const [debouncedSearch] = useDebounce(search, 1000);
   const [page, setPage] = useState(1);
@@ -22,8 +30,8 @@ export default function NotesClient() {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['notes', debouncedSearch, page],
     queryFn: () => fetchNotes(debouncedSearch, page),
+    placeholderData: initialData,
     staleTime: 1000 * 60 * 5,
-    placeholderData: { notes: [], totalPages: 1 }, 
   });
 
   const handleSearch = (value: string) => {
@@ -60,4 +68,3 @@ export default function NotesClient() {
     </div>
   );
 }
-
