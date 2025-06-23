@@ -7,8 +7,6 @@ interface NoteModalProps {
   onClose: () => void;
 }
 
-const modalRoot = document.body;
-
 export default function NoteModal({ onClose }: NoteModalProps) {
   useEffect(() => {
     const originalStyle = window.getComputedStyle(document.body).overflow;
@@ -31,6 +29,10 @@ export default function NoteModal({ onClose }: NoteModalProps) {
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) onClose();
   };
+  
+  const modalRoot = typeof document !== 'undefined' ? document.body : null;
+
+  if (!modalRoot) return null;
 
   return ReactDOM.createPortal(
     <div className={css.backdrop} onClick={handleBackdropClick}>
