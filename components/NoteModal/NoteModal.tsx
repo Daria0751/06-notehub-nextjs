@@ -29,10 +29,6 @@ export default function NoteModal({ onClose }: NoteModalProps) {
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) onClose();
   };
-  
-  const modalRoot = typeof document !== 'undefined' ? document.body : null;
-
-  if (!modalRoot) return null;
 
   return ReactDOM.createPortal(
     <div className={css.backdrop} onClick={handleBackdropClick}>
@@ -43,6 +39,6 @@ export default function NoteModal({ onClose }: NoteModalProps) {
         <NoteForm onClose={onClose} />
       </div>
     </div>,
-    modalRoot
+    document.body
   );
 }
