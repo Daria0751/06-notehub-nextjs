@@ -11,7 +11,7 @@ import Loader from '../../components/Loader/Loader';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import NoteModal from '../../components/NoteModal/NoteModal';
 import Pagination from '../../components/Pagination/Pagination';
-import { fetchNotes } from '../../lid/api';
+import { fetchNotes } from '../../lib/api';
 import type { Note } from '../../types/note';
 
 interface Props {

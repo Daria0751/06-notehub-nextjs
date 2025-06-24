@@ -1,4 +1,4 @@
-import { getSingleNote } from '../../../lid/api';
+import { getSingleNote } from '../../../lib/api';
 import NoteDetailsClient from './NoteDetails.client';
 import {
   QueryClient,

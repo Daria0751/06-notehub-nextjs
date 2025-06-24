@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getNotes } from '../../lid/api';
+import { getNotes } from '../../lib/api';
 import NotesClient from './NotesClient';
 
 export const metadata: Metadata = {

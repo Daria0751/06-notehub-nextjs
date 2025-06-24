@@ -4,7 +4,7 @@ import React from 'react';
 import type { Note } from '../../../types/note';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
-import { getSingleNote } from '../../../lid/api';
+import { getSingleNote } from '../../../lib/api';
 
 
 type Props = {
