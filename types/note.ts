@@ -1,12 +1,10 @@
 export interface Note {
-  id: string;
+  id: number;
   title: string;
   content: string;
-  categoryId: string;
-  userId: string;
+  tag: 'Todo' | 'Work' | 'Personal' | 'Meeting' | 'Shopping';
   createdAt: string;
   updatedAt: string;
-  tag: 'Todo' | 'Work' | 'Personal' | 'Meeting' | 'Shopping';
 }
 
 export interface NewNoteData {
@@ -14,3 +12,5 @@ export interface NewNoteData {
   content?: string;
   tag: 'Todo' | 'Work' | 'Personal' | 'Meeting' | 'Shopping';
 }
+
+
