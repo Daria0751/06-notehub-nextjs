@@ -30,7 +30,7 @@ export default function NotesClient({ initialData }: Props) {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['notes', debouncedSearch, page],
     queryFn: () => fetchNotes(debouncedSearch, page),
-    initialData,
+    placeholderData: (prev) => prev ?? initialData,  // <- по вимогам ментора
     staleTime: 1000 * 60 * 5,
   });
 
@@ -64,6 +64,7 @@ export default function NotesClient({ initialData }: Props) {
     </div>
   );
 }
+
 
 
 

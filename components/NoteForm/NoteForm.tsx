@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage as FormikErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createNote } from '../../lib/api';
+import { createNote } from '@/lib/api';
 import css from './NoteForm.module.css';
 
 interface NoteFormProps {
@@ -13,8 +13,7 @@ const validationSchema = Yup.object({
     .min(3, 'Title must be at least 3 characters')
     .max(50, 'Title must be 50 characters or less')
     .required('Title is required'),
-  content: Yup.string()
-    .max(500, 'Content must be 500 characters or less'),
+  content: Yup.string().max(500, 'Content must be 500 characters or less'),
   tag: Yup.mixed<'Todo' | 'Work' | 'Personal' | 'Meeting' | 'Shopping'>()
     .oneOf(['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'])
     .required('Tag is required'),
