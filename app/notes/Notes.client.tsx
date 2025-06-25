@@ -5,15 +5,23 @@ import { useDebounce } from 'use-debounce';
 import { useQuery } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 
-import SearchBox from '../../components/SearchBox/SearchBox';
-import NoteList from '../../components/NoteList/NoteList';
-import Loader from '../../components/Loader/Loader';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import NoteModal from '../../components/NoteModal/NoteModal';
-import Pagination from '../../components/Pagination/Pagination';
-import { fetchNotes } from '../../lib/api';
+import SearchBox from '@/components/SearchBox/SearchBox';
+import NoteList from '@/components/NoteList/NoteList';
+import Loader from '@/components/Loader/Loader';
+import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
+import NoteModal from '@/components/NoteModal/NoteModal';
+import Pagination from '@/components/Pagination/Pagination';
+import { fetchNotes } from '@/lib/api';
+import type { Note } from '@/types/note';
 
-export default function NotesClient() {
+interface Props {
+  initialData: {
+    notes: Note[];
+    totalPages: number;
+  };
+}
+
+export default function NotesClient({ initialData }: Props) {
   const [search, setSearch] = useState('');
   const [debouncedSearch] = useDebounce(search, 1000);
   const [page, setPage] = useState(1);
@@ -22,8 +30,8 @@ export default function NotesClient() {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['notes', debouncedSearch, page],
     queryFn: () => fetchNotes(debouncedSearch, page),
+    initialData,
     staleTime: 1000 * 60 * 5,
-    placeholderData: (prev) => prev,
   });
 
   const handleSearch = (value: string) => {
@@ -45,11 +53,7 @@ export default function NotesClient() {
         <>
           <NoteList notes={data.notes} />
           {data.totalPages > 1 && (
-            <Pagination
-              totalPages={data.totalPages}
-              currentPage={page}
-              onPageChange={(p) => setPage(p)}
-            />
+            <Pagination totalPages={data.totalPages} currentPage={page} onPageChange={setPage} />
           )}
         </>
       ) : (
@@ -60,6 +64,7 @@ export default function NotesClient() {
     </div>
   );
 }
+
 
 
 

@@ -2,14 +2,15 @@
 
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { getSingleNote } from '../../../lib/api';
+import { getSingleNote } from '@/lib/api';
 
 export default function NoteDetailsClient() {
   const { id } = useParams<{ id: string }>();
+  const noteId = Number(id);
 
   const { data: note, isLoading, error } = useQuery({
-    queryKey: ['note', id],
-    queryFn: () => getSingleNote(id as string),
+    queryKey: ['note', noteId],
+    queryFn: () => getSingleNote(noteId),
     refetchOnMount: false,
   });
 
@@ -20,8 +21,13 @@ export default function NoteDetailsClient() {
     <div>
       <h2>{note.title}</h2>
       <p>{note.content}</p>
-      <p>{note.updatedAt ? `Updated at: ${note.updatedAt}` : `Created at: ${note.createdAt}`}</p>
+      <p>Tag: {note.tag}</p>
+      <p>Created at: {note.createdAt}</p>
     </div>
   );
 }
+
+
+
+
 
